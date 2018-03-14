@@ -25,7 +25,7 @@ namespace SpecflowParallelTest
         [BeforeScenario]
         public void Initialize()
         {
-            SelectBrowser(BrowserType.Grid);
+            SelectBrowser(BrowserType.GridIe);
         }
 
         [AfterScenario]
@@ -40,7 +40,8 @@ namespace SpecflowParallelTest
                 new InternetExplorerOptions
                 {
                     IntroduceInstabilityByIgnoringProtectedModeSettings = true,
-                    EnsureCleanSession = true
+                    EnsureCleanSession = true,
+                    InitialBrowserUrl = "http://www.google.co.uk"
                 };
             switch (browserType)
             {
@@ -64,10 +65,13 @@ namespace SpecflowParallelTest
                     _driver = new InternetExplorerDriver(options);
                     _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
                     break;
-                case BrowserType.Grid:
-                    const string uri = "http://localhost:4444/wd/hub";
+                case BrowserType.GridChrome:
                     ChromeOptions coptions = new ChromeOptions();
-                    _driver = new RemoteWebDriver(new Uri(uri), coptions.ToCapabilities());
+                    _driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), coptions.ToCapabilities());
+                    _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
+                    break;
+                case BrowserType.GridIe:
+                    _driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), options.ToCapabilities());
                     _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
                     break;
                 default:
@@ -81,6 +85,7 @@ namespace SpecflowParallelTest
         Chrome,
         Firefox,
         Ie,
-        Grid
+        GridChrome,
+        GridIe
     }
 }
