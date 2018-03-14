@@ -1,0 +1,15 @@
+{  
+   "capabilities":[  
+      {  
+         "browserName":"internet explorer",
+         "version":"11",
+         "platform":"WINDOWS",
+         "maxInstances":2,
+         "IntroduceInstabilityByIgnoringProtectedModeSettings":true,
+         "EnsureCleanSession":true
+      }
+   ],
+   "maxSession":2,
+   "port":5555,
+   "register":true
+}

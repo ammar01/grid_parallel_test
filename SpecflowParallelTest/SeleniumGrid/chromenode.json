@@ -1,0 +1,13 @@
+{  
+   "capabilities":[  
+      {  
+         "browserName":"chrome",
+         "platform":"WINDOWS",
+         "maxInstances":2,
+		 "webdriver.chrome.driver":"C:/development/selenium/chromedriver.exe"
+      }
+   ],
+   "maxSession":2,
+   "port":5557,
+   "register":true
+}
