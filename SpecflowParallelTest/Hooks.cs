@@ -5,6 +5,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using System.Reflection;
+using CDAT.Tests.E2E.Helpers;
 using OpenQA.Selenium.Remote;
 using TechTalk.SpecFlow;
 
@@ -14,7 +15,7 @@ namespace SpecflowParallelTest
     public class Hooks
     {
         private readonly IObjectContainer _objectContainer;
-
+        private BrowserHelper _browserHelper;
         private IWebDriver _driver;
 
         public Hooks(IObjectContainer objectContainer)
@@ -41,7 +42,7 @@ namespace SpecflowParallelTest
                 {
                     IntroduceInstabilityByIgnoringProtectedModeSettings = true,
                     EnsureCleanSession = true,
-                    InitialBrowserUrl = "http://www.google.co.uk"
+                    InitialBrowserUrl = "http://www.google.co.uk" // this gets around an issue with ie not working with grid in parallel
                 };
             switch (browserType)
             {
@@ -49,7 +50,9 @@ namespace SpecflowParallelTest
                     //ChromeOptions option = new ChromeOptions();
                     //option.AddArgument("--headless");
                     //_driver = new ChromeDriver(option);
-                    _driver = new ChromeDriver();
+                    _browserHelper = new BrowserHelper("Chrome");
+                    _driver = _browserHelper.Driver;
+                    //_driver = new ChromeDriver();
                     _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
                     break;
                 case BrowserType.Firefox:
