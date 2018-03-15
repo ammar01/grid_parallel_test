@@ -14,19 +14,13 @@ using TechTalk.SpecFlow;
 
 namespace CDAT.Tests.E2E.Helpers
 {
-    public class BrowserHelper
+    public static class BrowserHelper
     {
-        private readonly HtmlParser HtmlParser = new HtmlParser();
+        private static readonly HtmlParser HtmlParser = new HtmlParser();
 
-        private IWebDriver _driver;
-        public WebDriverWait Wait;
-
-        public BrowserHelper(string browserType)
-        {
-
-        }
-
-        public IWebDriver Driver
+        private static IWebDriver _driver;
+        public static WebDriverWait Wait;
+        public static IWebDriver Driver
         {
             get
             {
@@ -57,7 +51,7 @@ namespace CDAT.Tests.E2E.Helpers
             }
         }
 
-        public void ShutdownBrowser()
+        public static void ShutdownBrowser()
         {
             if (_driver != null)
             {
@@ -66,7 +60,7 @@ namespace CDAT.Tests.E2E.Helpers
             }
         }
 
-        public void TakeScreenshot(string filePath="")
+        public static void TakeScreenshot(string filePath="")
         {
             if (string.IsNullOrEmpty(filePath))
             {
@@ -85,13 +79,13 @@ namespace CDAT.Tests.E2E.Helpers
         }
 
 
-        public void DeleteCookiesAndGoToUrl(string url)
+        public static void DeleteCookiesAndGoToUrl(string url)
         {
             Driver.Manage().Cookies.DeleteAllCookies();
             GoToUrl(url);
         }
 
-        public void GoToUrl(string url)
+        public static void GoToUrl(string url)
         {
             string currenturl = Driver.Url;
             string newUrl = TestInitializer.GetAbsoluteUrl(url);
@@ -104,7 +98,7 @@ namespace CDAT.Tests.E2E.Helpers
             WaitForAjax();
         }
 
-        public void WaitFor(Func<bool> isComplete, string timeoutMsg, int timeout = 3000)
+        public static void WaitFor(Func<bool> isComplete, string timeoutMsg, int timeout = 3000)
         {
             var waitTime = 200;
             var delay = 0;
@@ -120,8 +114,8 @@ namespace CDAT.Tests.E2E.Helpers
 
             throw new TimeoutException(timeoutMsg);
         }        
-
-        public void WaitForAjax()
+        
+        public static void WaitForAjax()
         {
             try
             {
@@ -135,7 +129,7 @@ namespace CDAT.Tests.E2E.Helpers
             catch { }
         }
 
-        public object ExecuteScript(string script)
+        public static object ExecuteScript(string script)
         {
             return ((IJavaScriptExecutor)Driver).ExecuteScript(script);
         }
@@ -146,13 +140,13 @@ namespace CDAT.Tests.E2E.Helpers
         /// </summary>
         /// <param name="container"></param>
         /// <returns></returns>
-        public IHtmlDocument ParseHtmlFromWebElement(IWebElement container)
+        public static IHtmlDocument ParseHtmlFromWebElement(IWebElement container)
         {
             string innerHtml = container.GetAttribute("innerHTML");
             return HtmlParser.Parse(innerHtml);
         }
 
-        public void ClickTabNavById(string id)
+        public static void ClickTabNavById(string id)
         {
             var tab = Driver.FindElement(By.ClassName("multi-tab-header")).FindElement(By.Id(id));
 
@@ -163,7 +157,7 @@ namespace CDAT.Tests.E2E.Helpers
             WaitForAjax();
         }
 
-        public void ClearThenSendKeys(IWebElement input, string value)
+        public static void ClearThenSendKeys(IWebElement input, string value)
         {
             //focus on element
             MoveToElement(input);
@@ -171,7 +165,7 @@ namespace CDAT.Tests.E2E.Helpers
             input.SendKeys(value);
         }
 
-        public void MoveToElement(IWebElement targetElement)
+        public static void MoveToElement(IWebElement targetElement)
         {
             if (targetElement == null)
                 return;

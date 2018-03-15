@@ -5,7 +5,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using System.Reflection;
-using CDAT.Tests.E2E.Helpers;
 using OpenQA.Selenium.Remote;
 using TechTalk.SpecFlow;
 
@@ -15,7 +14,6 @@ namespace SpecflowParallelTest
     public class Hooks
     {
         private readonly IObjectContainer _objectContainer;
-        private BrowserHelper _browserHelper;
         private IWebDriver _driver;
 
         public Hooks(IObjectContainer objectContainer)
@@ -33,6 +31,7 @@ namespace SpecflowParallelTest
         public void CleanUp()
         {
             _driver?.Quit();
+            _driver?.Dispose();
         }
 
         internal void SelectBrowser(BrowserType browserType)
@@ -50,9 +49,7 @@ namespace SpecflowParallelTest
                     //ChromeOptions option = new ChromeOptions();
                     //option.AddArgument("--headless");
                     //_driver = new ChromeDriver(option);
-                    _browserHelper = new BrowserHelper("Chrome");
-                    _driver = _browserHelper.Driver;
-                    //_driver = new ChromeDriver();
+                    _driver = new ChromeDriver();
                     _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
                     break;
                 case BrowserType.Firefox:
