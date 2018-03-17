@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Configuration;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace CDAT.Tests
+namespace SpecflowParallelTest.Support
 {
     public static class TestInitializer
     {

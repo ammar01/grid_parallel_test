@@ -12,7 +12,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 
-namespace CDAT.Tests.E2E.Helpers
+namespace SpecflowParallelTest.Support
 {
     public static class BrowserHelper
     {

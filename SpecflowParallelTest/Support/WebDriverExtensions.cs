@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
+using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 
-namespace CDAT.Tests.E2E.Helpers
+
+namespace SpecflowParallelTest.Support
 {
     public static class WebDriverExtensions
     {
