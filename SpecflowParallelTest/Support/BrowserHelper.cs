@@ -14,34 +14,23 @@ using TechTalk.SpecFlow;
 
 namespace SpecflowParallelTest.Support
 {
-    public static class BrowserHelper
+    public class BrowserHelper
     {
         private static readonly HtmlParser HtmlParser = new HtmlParser();
 
+        [ThreadStatic]
         private static IWebDriver _driver;
         public static WebDriverWait Wait;
+
+        public static void SetDriver(IWebDriver driver)
+        {
+            _driver = driver;
+        }
+
         public static IWebDriver Driver
         {
             get
             {
-                if (_driver != null)
-                    return _driver;
-
-                if (ConfigurationManager.AppSettings["UseIE"] == "true")
-                {
-                    var options =
-                        new InternetExplorerOptions
-                        {
-                            IntroduceInstabilityByIgnoringProtectedModeSettings = true,
-                            EnsureCleanSession = true
-                        };
-                    _driver = new InternetExplorerDriver(options);
-                }
-                else
-                {
-                    _driver = new ChromeDriver();
-                }
-
                 _driver.Manage().Window.Maximize();
                 _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
 
@@ -126,7 +115,10 @@ namespace SpecflowParallelTest.Support
                     return active == 0;
                 });
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
 
         public static object ExecuteScript(string script)
