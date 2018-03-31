@@ -107,9 +107,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
     <Compile Include="Steps\UserFormSteps.cs" />
-    <Compile Include="Support\BrowserHelper.cs" />
-    <Compile Include="Support\TestInitializer.cs" />
-    <Compile Include="Support\WebDriverExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -137,6 +134,7 @@
     <Content Include="SeleniumGrid\IEDriverServer.exe" />
     <Content Include="SeleniumGrid\selenium-server-standalone-3.11.0.jar" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

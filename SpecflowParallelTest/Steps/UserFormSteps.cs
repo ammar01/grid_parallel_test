@@ -1,7 +1,9 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Threading;
-using SpecflowParallelTest.Support;
+using ImpromptuInterface.Optimization;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -12,10 +14,9 @@ namespace SpecflowParallelTest.Steps
     {
         private readonly IWebDriver _driver;
 
-        public UserFormSteps()
+        public UserFormSteps(IWebDriver driver)
         {
-            _driver = BrowserHelper.Driver;
-            //_driver = driver;
+            _driver = driver;// Hooks.Driver;
         }
 
 
@@ -33,8 +34,8 @@ namespace SpecflowParallelTest.Steps
         [Given(@"I click submit button")]
         public void GivenIClickSubmitButton()
         {
-            //_driver.FindElement(By.Name("Save")).Click();
-            BrowserHelper.Driver.FindElement(By.Name("Save")).Click();
+            _driver.FindElement(By.Name("Save")).Click();
+           // BrowserHelper.Driver.FindElement(By.Name("Save")).Click();
         }
 
         [Given(@"I verify the entered user form details in the application database")]

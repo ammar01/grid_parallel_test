@@ -2,7 +2,6 @@
 using OpenQA.Selenium;
 using System;
 using System.Threading;
-using SpecflowParallelTest.Support;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -14,10 +13,9 @@ namespace SpecflowParallelTest.Steps
 
         private readonly IWebDriver _driver;
 
-        public LoginSteps()
+        public LoginSteps(IWebDriver driver)
         {
-            _driver = BrowserHelper.Driver;
-            //_driver = driver;
+            _driver = driver; //Hooks.Driver;
         }
 
 

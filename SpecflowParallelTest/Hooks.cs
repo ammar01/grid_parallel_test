@@ -4,7 +4,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
-using SpecflowParallelTest.Support;
 using TechTalk.SpecFlow;
 
 namespace SpecflowParallelTest
@@ -13,7 +12,13 @@ namespace SpecflowParallelTest
     public class Hooks
     {
         private readonly IObjectContainer _objectContainer;
-        private IWebDriver _driver;
+        //private IWebDriver _driver;
+
+        [ThreadStatic]
+        private static IWebDriver _driver;
+
+        public static IWebDriver Driver => _driver;
+
 
         public Hooks(IObjectContainer objectContainer)
         {
@@ -50,7 +55,6 @@ namespace SpecflowParallelTest
                     break;
                 case BrowserType.Ie:
                     _driver = new InternetExplorerDriver(options);
-                    BrowserHelper.SetDriver(_driver);
                     _objectContainer.RegisterInstanceAs(_driver);
                     break;
                 case BrowserType.GridChrome:
